@@ -9,11 +9,6 @@ namespace BookSharing.Models
 {
     public partial class Seller
     {
-        public Seller()
-        {
-            Books = new HashSet<Book>();
-        }
-
         public int SellerId { get; set; }
         public string UserAsSeller { get; set; }
         public string BookTitle { get; set; }
@@ -22,6 +17,5 @@ namespace BookSharing.Models
         public virtual Book BookTitleNavigation { get; set; }
         public virtual User SellerNavigation { get; set; }
         public virtual User UserAsSellerNavigation { get; set; }
-        public virtual ICollection<Book> Books { get; set; }
     }
 }

@@ -14,7 +14,7 @@
       "launchBrowser": true,
       "launchUrl": "api/authors",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"//for debugging error in console and not on client site
       }
     },
     "BookSharing": {

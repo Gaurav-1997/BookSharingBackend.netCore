@@ -9,10 +9,14 @@ namespace BookSharing.Models
 {
     public partial class Category
     {
+        public Category()
+        {
+            BookCategories = new HashSet<BookCategory>();
+        }
+
         public int Id { get; set; }
         public string CategoryName { get; set; }
-        public int? BookId { get; set; }
 
-        public virtual Book Book { get; set; }
+        public virtual ICollection<BookCategory> BookCategories { get; set; }
     }
 }

@@ -11,13 +11,13 @@ namespace BookSharing.Models
     {
         public Author()
         {
-            Books = new HashSet<Book>();
+            BookAuthors = new HashSet<BookAuthor>();
         }
 
         public int Id { get; set; }
         public string AuthorName { get; set; }
         public string AuthorEmail { get; set; }
 
-        public virtual ICollection<Book> Books { get; set; }
+        public virtual ICollection<BookAuthor> BookAuthors { get; set; }
     }
 }

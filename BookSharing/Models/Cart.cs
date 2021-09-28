@@ -9,9 +9,15 @@ namespace BookSharing.Models
 {
     public partial class Cart
     {
+        public Cart()
+        {
+            CartItems = new HashSet<CartItem>();
+        }
+
         public int CartId { get; set; }
-        public string BookTitle { get; set; }
-        public int Quantity { get; set; }
-        public int TotalPrice { get; set; }
+        public int UserId { get; set; }
+
+        public virtual User User { get; set; }
+        public virtual ICollection<CartItem> CartItems { get; set; }
     }
 }

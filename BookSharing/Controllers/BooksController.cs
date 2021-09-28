@@ -28,10 +28,21 @@ namespace BookSharing.Controllers
         }
 
         // GET: api/Books/5
-        [HttpGet("{id}")]
+        [HttpGet("book/{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
             var book = await _context.Books.FindAsync(id);
+
+            _context.Entry(book).Collection(b => b.BookAuthors)
+                .Query()
+                .Include(bkauth => bkauth.Author)
+                .Load();
+
+            //_context.Books.Include(b => b.BookCategories);
+            _context.Entry(book).Collection(b => b.BookCategories)
+                .Query()
+                .Include(cat => cat.Category)
+                .Load();
 
             if (book == null)
             {
@@ -44,7 +55,7 @@ namespace BookSharing.Controllers
         // PUT: api/Books/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+        [HttpPut("updateBook/{id}")]
         public async Task<IActionResult> PutBook(int id, Book book)
         {
             if (id != book.Id)
@@ -76,7 +87,7 @@ namespace BookSharing.Controllers
         // POST: api/Books
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
+        [HttpPost("addBook")]
         public async Task<ActionResult<Book>> PostBook(Book book)
         {
             _context.Books.Add(book);
@@ -86,7 +97,7 @@ namespace BookSharing.Controllers
         }
 
         // DELETE: api/Books/5
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteBook/{id}")]
         public async Task<ActionResult<Book>> DeleteBook(int id)
         {
             var book = await _context.Books.FindAsync(id);

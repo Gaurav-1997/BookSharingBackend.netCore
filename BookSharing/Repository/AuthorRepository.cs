@@ -41,9 +41,9 @@ namespace BookSharing.Repository
             var author = await _context.Authors.SingleAsync(auth => auth.Id == id);
 
             //related data
-            _context.Entry(author)
-                    .Collection(auth => auth.Books)
-                    .Load();
+            //_context.Entry(author)
+            //        .Collection(auth => auth.Books)
+            //        .Load();
            
 
             return author;
