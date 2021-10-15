@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookSharing.Models;
 using Microsoft.AspNetCore.Authorization;
+using log4net;
+using BookSharing.ComponentHelper;
 
 namespace BookSharing.Controllers
 {
@@ -16,6 +18,8 @@ namespace BookSharing.Controllers
     public class AuthorsController : ControllerBase
     {
         private readonly BookSharingContext _context;
+        private readonly ILog Logger = Log4netHelper.GetLogger(typeof(AuthorsController));
+
 
         public AuthorsController(BookSharingContext context)
         {
@@ -35,18 +39,32 @@ namespace BookSharing.Controllers
         [HttpGet("author/{id}")]
         public async Task<ActionResult<Author>> GetAuthor(int id)
         {
-            var author = await _context.Authors.FindAsync(id);
-
-            _context.Entry(author)
+            var author = (Author)null;
+            try
+            {
+                author = await _context.Authors.FindAsync(id);
+                _context.Entry(author)
                 .Collection(au => au.BookAuthors)
                 .Query()
                 .Include(bauth => bauth.Book)
                 .Load();
 
-            if (author == null)
+                Logger.Info($"Returned authors info for authorId:{id}");
+            }
+            catch (Exception ex)
             {
+                Logger.Error(ex.Message+"for author id {id}");
                 return NotFound();
             }
+            
+
+            //var query = ((System.Data.Objects.ObjectQuery)author).ToTraceString();
+            //Logger.Info(author.);
+
+            //if (author == null)
+            //{
+            //    return NotFound();
+            //}
 
             return author;
         }

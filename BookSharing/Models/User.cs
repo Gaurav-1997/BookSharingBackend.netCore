@@ -19,18 +19,18 @@ namespace BookSharing.Models
         }
 
         public int UserId { get; set; }
-        [Required(ErrorMessage = "Email is madatory")]
-        [RegularExpression("{^_`{|} ~-]+@[a-zA-Z0-9-]+(?:.'\'[a-zA-Z0-9-]+)*$/.}", ErrorMessage ="Email should be of type abc@xyz.com")]
+        //[Required(ErrorMessage = "Email is madatory")]
+        //[RegularExpression("{^_`{|} ~-]+@[a-zA-Z0-9-]+(?:.'\'[a-zA-Z0-9-]+)*$/.}", ErrorMessage ="Email should be of type abc@xyz.com")]
         
         public string UserEmail { get; set; }
-        [Required(ErrorMessage = "Password is madatory")]
-        [StringLength(20,MinimumLength = 6)]
-        [RegularExpression("^(?=.*[A-Za-z])(?=.*'\'d)(?=.*[@$!%*#?&])[A-Za-z'\'d@$!%*#?&]{6,}$",
-            ErrorMessage = "Minimum six characters, at least one letter, one number and one special character:")]
+        //[Required(ErrorMessage = "Password is madatory")]
+        //[StringLength(20,MinimumLength = 6)]
+        //[RegularExpression("^(?=.*[A-Za-z])(?=.*'\'d)(?=.*[@$!%*#?&])[A-Za-z'\'d@$!%*#?&]{6,}$",
+        //    ErrorMessage = "Minimum six characters, at least one letter, one number and one special character:")]
         public string UserPassword { get; set; }
 
-        [Required(ErrorMessage = "UserName is madatory")]
-        [RegularExpression(".*[a-zA-z]+.*",ErrorMessage ="Only Numerics are not allowed")]
+        //[Required(ErrorMessage = "UserName is madatory")]
+        //[RegularExpression(".*[a-zA-z]+.*",ErrorMessage ="Only Numerics are not allowed")]
         public string UserName { get; set; }
         public string Token { get; set; }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using BookSharing.ComponentHelper;
+using log4net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -10,8 +12,11 @@ namespace BookSharing.Models
 {
     public partial class BookSharingContext : DbContext
     {
+        //private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        //ILog _logger = Log4netHelper.GetLogger(typeof(BookSharingContext));
         public BookSharingContext()
         {
+            //BookSharingContext.Database.Log = log => _logger.Debug(log);
         }
 
         public BookSharingContext(DbContextOptions<BookSharingContext> options)

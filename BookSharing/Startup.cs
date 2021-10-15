@@ -37,13 +37,13 @@ namespace BookSharing
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
             services.AddDbContext<BookSharingContext>(options =>
-             options.UseSqlServer(Configuration.GetConnectionString("BookSharingDB")));
+             options.UseSqlServer(Configuration.GetConnectionString("BookSharingDB")).EnableSensitiveDataLogging());
 
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
@@ -92,6 +92,7 @@ namespace BookSharing
             //for adding repository pattern
             //services.AddScoped<IAuthorRepository, AuthorRepository>();
 
+            //Cors Configuration
             services.AddCors(options => options.AddDefaultPolicy(
                 builder=> builder.WithOrigins("http://localhost:4200")
                 .AllowAnyHeader().AllowAnyMethod()));
@@ -100,8 +101,9 @@ namespace BookSharing
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            
             //app.ConfigureExceptionHandler(env);
             app.UseMiddleware<ExceptionMiddlewares>();
 

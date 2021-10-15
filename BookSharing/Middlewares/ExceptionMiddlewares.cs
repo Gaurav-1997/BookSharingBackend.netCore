@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BookSharing.ComponentHelper;
+using log4net;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ namespace BookSharing.Middlewares
     {
         private readonly RequestDelegate next;
         private readonly ILogger<ExceptionMiddlewares> logger;
+        private readonly ILog Logger = Log4netHelper.GetLogger(typeof(ExceptionMiddlewares));
 
         public ExceptionMiddlewares(RequestDelegate next, ILogger<ExceptionMiddlewares> logger)
         {
@@ -28,6 +31,7 @@ namespace BookSharing.Middlewares
             {
                 
                 logger.LogError(ex, ex.Message); // for showing the error in console
+                Logger.Error(ex.Message);
 
                 // handling all the unhandled exxception here
                 context.Response.StatusCode = 500;
